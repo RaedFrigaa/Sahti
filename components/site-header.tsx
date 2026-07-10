@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { History, LogIn } from "lucide-react";
+import { Logo } from "./ui";
+export function SiteHeader() { return <header className="border-b border-brand-soft bg-white"><nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6"><Logo /><div className="flex items-center gap-2 sm:gap-4"><Link className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 font-semibold hover:bg-brand-soft" href="/historique"><History className="h-4 w-4" /> <span className="hidden sm:inline">Mon historique</span></Link><Link className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-brand-ink px-3 font-semibold text-white hover:opacity-90" href="/auth"><LogIn className="h-4 w-4" /> <span className="hidden sm:inline">Mon espace</span></Link></div></nav></header>; }

@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { AuthForm } from "@/components/auth-form";
+import { Logo } from "@/components/ui";
+export default function Auth(){return <main className="min-h-screen bg-brand-soft px-4 py-8"><div className="mx-auto max-w-md"><Logo/><h1 className="mt-12 text-3xl font-bold">Votre espace Sahti</h1><p className="mt-2">Créez votre compte ou connectez-vous avec votre téléphone.</p><div className="mt-7"><AuthForm/></div><div className="mt-6 rounded-2xl border border-brand-muted bg-white p-5 text-center"><h2 className="text-lg font-bold">Vous êtes un cabinet ?</h2><p className="mt-1 text-sm">Utilisez votre compte professionnel créé par l’administrateur.</p><Link href="/login" className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-brand-ink px-5 py-3 font-bold text-white">Connexion cabinet</Link></div><Link className="mt-6 inline-block font-bold text-brand-secondary" href="/">← Retour à l’accueil</Link></div></main>}
