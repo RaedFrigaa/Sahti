@@ -14,7 +14,6 @@ export function CabinetList() {
   const [specialty, setSpecialty] = useState("");
   const [wilaya, setWilaya] = useState("");
   const [sort, setSort] = useState("");
-  const [near, setNear] = useState(false);
   const [selected, setSelected] = useState<Cabinet | null>(null);
 
   const filtered = useMemo(() => {
@@ -40,8 +39,7 @@ export function CabinetList() {
         <select value={category} onChange={e => { setCategory(e.target.value); setSpecialty(""); }} className="min-h-11 rounded-xl border border-brand-muted px-3"><option value="">Toutes les catégories</option><option>Dentiste</option><option>Médecin</option><option>Psychologue</option></select>
         {category === "Médecin" && <select aria-label="Spécialité médicale" value={specialty} onChange={e => setSpecialty(e.target.value)} className="min-h-11 rounded-xl border border-brand-muted px-3"><option value="">Toutes les spécialités</option>{specialties.map(item => <option key={item}>{item}</option>)}</select>}
         <select value={wilaya} onChange={e => setWilaya(e.target.value)} className="min-h-11 rounded-xl border border-brand-muted px-3"><option value="">Toutes les wilayas</option>{wilayas.map(item => <option key={item}>{item}</option>)}</select>
-        <select aria-label="Trier les cabinets" value={sort} onChange={e => setSort(e.target.value)} className="min-h-11 rounded-xl border border-brand-muted px-3"><option value="">Trier par</option><option value="rating">Mieux notés</option><option value="price">Moins cher</option></select>
-        <button onClick={() => setNear(!near)} aria-pressed={near} className={`min-h-11 rounded-xl border px-4 font-bold ${near ? "border-brand-ink bg-brand-ink text-white" : "border-brand-muted"}`}>Plus proche</button>
+        <select aria-label="Trier les cabinets" value={sort} onChange={e => setSort(e.target.value)} className="min-h-11 rounded-xl border border-brand-muted px-3"><option value="">Trier par</option><option value="rating">Notes</option><option value="price">Prix</option><option value="distance">Plus proche</option></select>
       </div>
     </div></section>
     <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6"><div className="mb-6 flex items-center justify-between"><h2 className="text-2xl font-bold">{filtered.length} cabinets disponibles</h2>{(search || category || specialty || wilaya || sort) && <button onClick={reset} className="inline-flex items-center gap-1 font-bold text-brand-secondary"><X className="h-4 w-4"/> Réinitialiser</button>}</div>
