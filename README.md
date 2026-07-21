@@ -22,4 +22,14 @@ Sous PowerShell, si `npm` est bloqué par la politique de scripts, utilisez `npm
 - `/cabinet` : tableau de bord cabinet
 - `/admin` : tableau de bord administrateur
 
-Les données se trouvent dans `lib/mock-data.ts`. Les futures requêtes Supabase peuvent remplacer ce fichier progressivement.
+Les données publiques des cabinets sont maintenant lues depuis Supabase quand les variables d’environnement sont présentes, avec un retour automatique sur `lib/mock-data.ts` si l’environnement n’est pas encore configuré.
+
+## Variables d’environnement
+
+Créez un fichier `.env.local` à partir de `.env.local.example` avec :
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY` si vous devez faire des opérations serveur plus tard
+
+Sur Vercel, ajoutez les mêmes variables dans les settings du projet.

@@ -1,3 +1,14 @@
 import { CabinetList } from "@/components/cabinet-list";
 import { SiteHeader } from "@/components/site-header";
-export default function Home() { return <><SiteHeader /><CabinetList /></>; }
+import { getCabinets } from "@/lib/cabinet-service";
+
+export default async function Home() {
+  const cabinets = await getCabinets();
+
+  return (
+    <>
+      <SiteHeader />
+      <CabinetList cabinets={cabinets} />
+    </>
+  );
+}
