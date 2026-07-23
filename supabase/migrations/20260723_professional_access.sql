@@ -16,8 +16,10 @@ create index if not exists cabinets_owner_id_idx on public.cabinets(owner_id);
 create or replace function public.create_profile_for_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
-  insert into public.profiles (id, role, full_name, phone)
-  values (new.id, 'patient', new.raw_user_meta_data ->> 'full_name', new.phone)
+  -- Ne dépend volontairement que des deux colonnes requises par l'application.
+  -- Cela évite de bloquer la création Auth sur une ancienne table profiles.
+  insert into public.profiles (id, role)
+  values (new.id, 'patient')
   on conflict (id) do nothing;
   return new;
 end;
