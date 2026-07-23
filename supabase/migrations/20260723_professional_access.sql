@@ -50,6 +50,8 @@ drop policy if exists "cabinets: admin update" on public.cabinets;
 create policy "cabinets: admin update" on public.cabinets for update using (public.is_admin()) with check (public.is_admin());
 drop policy if exists "cabinets: admin delete" on public.cabinets;
 create policy "cabinets: admin delete" on public.cabinets for delete using (public.is_admin());
+drop policy if exists "cabinets: owner update" on public.cabinets;
+create policy "cabinets: owner update" on public.cabinets for update using (owner_id = auth.uid()) with check (owner_id = auth.uid());
 
 drop policy if exists "appointments: patient insert" on public.appointments;
 create policy "appointments: patient insert" on public.appointments for insert with check (patient_id = auth.uid());
