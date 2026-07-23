@@ -46,7 +46,9 @@ export function AdminDashboard() {
     event.preventDefault();
     const payload = { ...form, owner_id: form.owner_id || null, consultation_price: Number(form.consultation_price) };
     const supabase = createClient();
-    const result = editingId ? await supabase.from("cabinets").update(payload).eq("id", editingId) : await supabase.from("cabinets").insert(payload);
+    const result = editingId
+      ? await supabase.from("cabinets").update(payload).eq("id", editingId)
+      : await supabase.from("cabinets").insert({ ...payload, is_active: true });
     if (result.error) { setMessage(result.error.message); return; }
     setMessage(editingId ? "Cabinet mis à jour." : "Cabinet ajouté à Supabase.");
     setOpenForm(false); setEditingId(null); setForm(emptyCabinet); void load();
