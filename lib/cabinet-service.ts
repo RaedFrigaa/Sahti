@@ -1,7 +1,4 @@
-import {
-  cabinets as mockCabinets,
-  type Cabinet as MockCabinet,
-} from "@/lib/mock-data";
+import type { Cabinet as MockCabinet } from "@/lib/mock-data";
 import { getSupabaseClient } from "@/lib/supabase";
 
 export type CabinetReview = {
@@ -67,35 +64,11 @@ function averageRating(reviews: CabinetReview[]) {
   );
 }
 
-function fallbackCabinets() {
-  return mockCabinets.map((cabinet) => ({
-    id: cabinet.id,
-    name: cabinet.name,
-    category: cabinet.category,
-    specialty: cabinet.specialty,
-    wilaya: cabinet.wilaya,
-    address: cabinet.address,
-    phone: cabinet.phone,
-    rating: cabinet.rating,
-    price: cabinet.price,
-    description: cabinet.description,
-    image: cabinet.image,
-    gallery: cabinet.gallery,
-    reviews: cabinet.reviews.map((review) => ({
-      id: String(review.id),
-      patient: review.patient,
-      rating: review.rating,
-      comment: review.comment,
-      reported: review.reported,
-    })),
-  }));
-}
-
 export async function getCabinets(): Promise<Cabinet[]> {
   const supabase = getSupabaseClient();
 
   if (!supabase) {
-    return fallbackCabinets();
+    return [];
   }
 
   const { data: cabinetRows, error: cabinetError } = await supabase
@@ -107,7 +80,7 @@ export async function getCabinets(): Promise<Cabinet[]> {
     .order("created_at", { ascending: false });
 
   if (cabinetError || !cabinetRows?.length) {
-    return fallbackCabinets();
+    return [];
   }
 
   const cabinetIds = cabinetRows.map((row) => row.id);
@@ -119,7 +92,7 @@ export async function getCabinets(): Promise<Cabinet[]> {
 
   if (reviewError) {
     return cabinetRows.map((row) => {
-      const fallbackImage = row.image_url ?? mockCabinets[0]?.image ?? "";
+      const fallbackImage = row.image_url ?? "";
 
       return {
         id: row.id,
@@ -155,7 +128,7 @@ export async function getCabinets(): Promise<Cabinet[]> {
   }
 
   return cabinetRows.map((row) => {
-    const fallbackImage = row.image_url ?? mockCabinets[0]?.image ?? "";
+    const fallbackImage = row.image_url ?? "";
     const reviews = reviewsByCabinet.get(row.id) ?? [];
 
     return {
